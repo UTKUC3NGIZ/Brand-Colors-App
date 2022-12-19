@@ -1,9 +1,30 @@
-import React from 'react'
+import React, { useState } from "react";
+import Search from "./Search";
+import BrandsData from "../brands.json";
+import Brand from "./Brand";
 
 function Content() {
+  const brandsArray = [];
+
+  Object.keys(BrandsData).map((key) => {
+    brandsArray.push(BrandsData[key]);
+  });
+
+  const [brands, setBrands] = useState(brandsArray);
+
+  console.log(brandsArray);
   return (
-    <div>Content</div>
-  )
+    <main className="content">
+      <header className="header">
+        <Search />
+      </header>
+      <section className="brands">
+        {brands.map((brand) => (
+          <Brand brand={brand} />
+        ))}
+      </section>
+    </main>
+  );
 }
 
-export default Content
+export default Content;
