@@ -16,6 +16,7 @@ function App() {
   const [brands, setBrands] = useState(brandsArray);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [copied, setCopied] = useState(false);
+  const [search, setSearch] = useState("")  
 
   useEffect(() => {
     console.log(selectedBrands);
@@ -32,11 +33,17 @@ function App() {
     }
   }, [copied]);
 
+  useEffect(() => {
+setBrands(brandsArray.filter(brand => brand.title.toLowerCase().includes(search)))
+  },[search])
+
   const data = {
     brands,
     selectedBrands,
     setSelectedBrands,
     setCopied,
+    search,
+    setSearch
   };
   return (
     <>
