@@ -5,6 +5,9 @@ import Content from "./components/Content";
 import BrandsData from "./brands.json";
 import { useEffect, useState } from "react";
 import Copied from "./components/Copied";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import LazyLoad, { forceCheck } from "react-lazyload";
+import Collection from "./components/Collection";
 
 function App() {
   const brandsArray = [];
@@ -16,7 +19,7 @@ function App() {
   const [brands, setBrands] = useState(brandsArray);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [copied, setCopied] = useState(false);
-  const [search, setSearch] = useState("")  
+  const [search, setSearch] = useState("");
 
   // useEffect(() => {
   //   console.log(selectedBrands);
@@ -34,8 +37,14 @@ function App() {
   }, [copied]);
 
   useEffect(() => {
-setBrands(brandsArray.filter(brand => brand.title.toLowerCase().includes(search)))
-  },[search])
+    setBrands(
+      brandsArray.filter((brand) => brand.title.toLowerCase().includes(search))
+    );
+  }, [search]);
+
+  useEffect(() => {
+    forceCheck();
+  }, [brands]);
 
   const data = {
     brands,
@@ -43,15 +52,23 @@ setBrands(brandsArray.filter(brand => brand.title.toLowerCase().includes(search)
     setSelectedBrands,
     setCopied,
     search,
-    setSearch
+    setSearch,
   };
   return (
     <>
       <MainContext.Provider value={data}>
         {copied && <Copied color={copied} />}
-
         <Sidebar />
-        <Content />
+        <Router>
+          <Switch>
+            <Route path="/" exact>
+              <Content />
+            </Route>
+            <Route path="/collection/:slugs">
+              <Collection />
+            </Route>
+          </Switch>
+        </Router>
       </MainContext.Provider>
     </>
   );
