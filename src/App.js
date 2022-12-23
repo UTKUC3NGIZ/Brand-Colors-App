@@ -18,9 +18,9 @@ function App() {
   const [copied, setCopied] = useState(false);
   const [search, setSearch] = useState("")  
 
-  useEffect(() => {
-    console.log(selectedBrands);
-  });
+  // useEffect(() => {
+  //   console.log(selectedBrands);
+  // });
 
   useEffect(() => {
     if (copied) {
