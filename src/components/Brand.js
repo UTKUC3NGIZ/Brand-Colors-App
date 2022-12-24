@@ -4,7 +4,8 @@ import MainContext from "../MainContext";
 import ClipboardButton from "react-clipboard.js";
 
 function Brand({ brand }) {
-  const { selectedBrands, setSelectedBrands, setCopied } = useContext(MainContext);
+  const { selectedBrands, setSelectedBrands, setCopied } =
+    useContext(MainContext);
 
   const toggleSelected = () => {
     if (selectedBrands.includes(brand.slug)) {
@@ -15,8 +16,8 @@ function Brand({ brand }) {
   };
 
   const setColor = (color) => {
-setCopied(color)
-  }
+    setCopied(color);
+  };
   return (
     <div
       className={`brand ${
